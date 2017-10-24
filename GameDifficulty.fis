@@ -1,0 +1,78 @@
+[System]
+Name='GameDifficulty'
+Type='sugeno'
+Version=2.0
+NumInputs=3
+NumOutputs=1
+NumRules=27
+AndMethod='min'
+OrMethod='max'
+ImpMethod='prod'
+AggMethod='sum'
+DefuzzMethod='wtaver'
+
+[Input1]
+Name='User_Challenge_Rating'
+Range=[0 100]
+NumMFs=5
+MF1='Very_Easy':'trapmf',[-8 0 12 20]
+MF2='Easy':'trimf',[0 30 60]
+MF3='Medium':'trimf',[30 50 70]
+MF4='Hard':'trimf',[40 70 100]
+MF5='Very_Hard':'trapmf',[80 88 100 110]
+
+[Input2]
+Name='Session_Playtime'
+Range=[0 24]
+NumMFs=5
+MF1='Very_Short':'trapmf',[-1 0 0.15 1]
+MF2='Short':'gaussmf',[2 2]
+MF3='Medium':'gaussmf',[3 8]
+MF4='Long':'gaussmf',[4 12]
+MF5='Very_Long':'trapmf',[8 20 24 30]
+
+[Input3]
+Name='Deaths_per_Hour'
+Range=[0 30]
+NumMFs=4
+MF1='None':'trapmf',[0 0 0 0]
+MF2='Few':'gaussmf',[3 0.5]
+MF3='Some':'gaussmf',[2 5]
+MF4='Many':'gaussmf',[15 30]
+
+[Output1]
+Name='Enemies'
+Range=[0 1]
+NumMFs=3
+MF1='Few':'constant',[5]
+MF2='Some':'constant',[12.5]
+MF3='Many':'constant',[20]
+
+[Rules]
+1 0 0, 1 (1) : 2
+5 0 0, 3 (1) : 2
+2 1 0, 1 (0.8) : 1
+4 1 0, 3 (0.8) : 1
+3 1 0, 2 (0.8) : 1
+2 2 0, 1 (0.75) : 1
+3 2 0, 2 (0.75) : 1
+4 2 0, 3 (0.75) : 1
+2 0 3, 1 (0.6) : 1
+3 0 3, 2 (0.6) : 1
+4 0 3, 3 (0.6) : 1
+2 0 4, 1 (0.2) : 2
+4 0 2, 3 (0.6) : 2
+4 0 1, 3 (0.8) : 1
+2 0 1, 2 (0.6) : 1
+4 5 0, 3 (0.8) : 1
+2 5 1, 3 (0.2) : 1
+2 3 0, 1 (0.5) : 1
+3 3 0, 2 (0.5) : 1
+4 3 0, 3 (0.5) : 1
+2 4 0, 1 (0.3) : 1
+3 4 0, 2 (0.3) : 1
+4 4 0, 3 (0.3) : 1
+5 5 -4, 3 (1) : 1
+1 5 4, 1 (1) : 1
+3 3 4, 1 (0.2) : 1
+3 3 -4, 2 (0.2) : 1
